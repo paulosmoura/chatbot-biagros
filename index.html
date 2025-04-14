@@ -95,9 +95,9 @@
         });
 
         const data = await res.json();
-        const resposta = data.resposta || "❌ Erro: resposta vazia.";
+        const output = data.output || "❌ Erro: output vazia.";
 
-        appendMessage(resposta, "bot");
+        appendMessage(output, "bot");
       } catch (err) {
         appendMessage("Erro ao se comunicar com o servidor 😢", "bot");
       }
