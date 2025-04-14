@@ -120,6 +120,13 @@
       chat.scrollTop = chat.scrollHeight;
     }
 
+    function formatContent(text) {
+      if (!text) return "";
+      return text
+        .replace(/\n/g, "<br>") // quebra de linha
+        .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>"); // negrito
+    }
+
     async function sendMessage() {
       const text = messageInput.value.trim();
       if (!text) return;
@@ -134,8 +141,9 @@
           body: JSON.stringify({ chatInput: text })
         });
 
-        const resposta = await res.text();
-        appendMessage(resposta || "❌ Erro: output vazia.", "bot");
+        const resposta = await res.json();
+        const conteudo = formatContent(resposta?.message?.content || "❌ Resposta mal formatada.");
+        appendMessage(conteudo, "bot");
 
       } catch (err) {
         appendMessage("Erro ao se comunicar com o servidor 😢", "bot");
