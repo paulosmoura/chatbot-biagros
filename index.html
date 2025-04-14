@@ -95,7 +95,7 @@
         });
 
         const data = await res.json();
-        const output = data.output || "❌ Erro: output vazia.";
+        const output = data[0]?.output || "❌ Erro: output vazia.";
 
         appendMessage(output, "bot");
       } catch (err) {
