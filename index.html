@@ -151,16 +151,18 @@
           try {
             resposta = JSON.parse(raw);
           } catch (e) {
-            appendMessage("❌ Erro: resposta não é JSON válida.", "Sistema");
+            appendMessage("❌ Erro: resposta não é JSON válida.", "bot");
             return;
           }
         }
 
-        const conteudo = formatContent(resposta?.message?.content || "❌ Resposta mal formatada.");
-        appendMessage(conteudo, "Sistema");
+        const conteudo = formatContent(
+          resposta?.output || resposta?.message?.content || "❌ Resposta mal formatada."
+        );
+        appendMessage(conteudo, "bot");
 
       } catch (err) {
-        appendMessage("Erro ao se comunicar com o servidor 😢", "Sistema");
+        appendMessage("Erro ao se comunicar com o servidor 😢", "bot");
       }
     }
   </script>
