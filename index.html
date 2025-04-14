@@ -94,10 +94,9 @@
           body: JSON.stringify({ chatInput: text })
         });
 
-        const data = await res.json();
-        const output = data[0]?.output || "❌ Erro: output vazia.";
+        const resposta = await res.text(); // <- TEXT response, not JSON
+        appendMessage(resposta || "❌ Erro: resposta vazia.", "bot");
 
-        appendMessage(output, "bot");
       } catch (err) {
         appendMessage("Erro ao se comunicar com o servidor 😢", "bot");
       }
