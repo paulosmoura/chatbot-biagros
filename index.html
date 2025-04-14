@@ -151,16 +151,16 @@
           try {
             resposta = JSON.parse(raw);
           } catch (e) {
-            appendMessage("❌ Erro: resposta não é JSON válida.", "bot");
+            appendMessage("❌ Erro: resposta não é JSON válida.", "Sistema");
             return;
           }
         }
 
         const conteudo = formatContent(resposta?.message?.content || "❌ Resposta mal formatada.");
-        appendMessage(conteudo, "bot");
+        appendMessage(conteudo, "Sistema");
 
       } catch (err) {
-        appendMessage("Erro ao se comunicar com o servidor 😢", "bot");
+        appendMessage("Erro ao se comunicar com o servidor 😢", "Sistema");
       }
     }
   </script>
