@@ -1,53 +1,93 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>🌱 Chatbot BiAgros</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f2f2f2;
-      text-align: center;
       margin: 0;
       padding: 0;
+      background: linear-gradient(135deg, #005E50, #1E9B97, #6FA997);
+      background-size: 400% 400%;
+      animation: gradientMove 15s ease infinite;
+      color: #fff;
     }
+
+    @keyframes gradientMove {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
     h2 {
-      margin-top: 20px;
+      margin: 20px;
+      color: #ffffff;
+      font-size: 28px;
+      text-shadow: 1px 1px 4px #000;
     }
+
     #chat {
       width: 90%;
       max-width: 800px;
-      margin: 30px auto;
-      background: white;
-      border: 1px solid #ccc;
-      border-radius: 10px;
+      margin: 0 auto 20px auto;
+      background: #ffffff;
+      color: #000;
+      border-radius: 12px;
       padding: 20px;
       height: 400px;
       overflow-y: auto;
-      text-align: left;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
+
     #chat p {
       margin: 10px 0;
+      line-height: 1.5;
     }
+
     #userInput {
       width: 90%;
       max-width: 800px;
-      margin: 0 auto;
+      margin: 0 auto 30px auto;
       display: flex;
       gap: 10px;
-      padding: 20px;
     }
+
     #message {
       flex: 1;
-      padding: 10px;
+      padding: 12px;
       font-size: 16px;
+      border-radius: 6px;
+      border: none;
     }
+
     #sendBtn {
-      padding: 10px 20px;
+      padding: 12px 24px;
+      background-color: #005E50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
       font-size: 16px;
+      transition: background-color 0.3s ease;
     }
-    .user { color: blue; }
-    .bot { color: green; }
+
+    #sendBtn:hover {
+      background-color: #1E9B97;
+    }
+
+    .user {
+      color: #005E50;
+      font-weight: bold;
+    }
+
+    .bot {
+      color: #1E9B97;
+    }
+
+    ::placeholder {
+      color: #999;
+    }
   </style>
 </head>
 <body>
@@ -94,8 +134,8 @@
           body: JSON.stringify({ chatInput: text })
         });
 
-        const resposta = await res.text(); // <- TEXT response, not JSON
-        appendMessage(resposta || "❌ Erro: resposta vazia.", "bot");
+        const resposta = await res.text();
+        appendMessage(resposta || "❌ Erro: output vazia.", "bot");
 
       } catch (err) {
         appendMessage("Erro ao se comunicar com o servidor 😢", "bot");
