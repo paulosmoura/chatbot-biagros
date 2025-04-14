@@ -123,8 +123,8 @@
     function formatContent(text) {
       if (!text) return "";
       return text
-        .replace(/\n/g, "<br>") // quebra de linha
-        .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>"); // negrito
+        .replace(/\n/g, "<br>")
+        .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
     }
 
     async function sendMessage() {
@@ -141,7 +141,21 @@
           body: JSON.stringify({ chatInput: text })
         });
 
-        const resposta = await res.json();
+        const contentType = res.headers.get("content-type");
+        let resposta;
+
+        if (contentType && contentType.includes("application/json")) {
+          resposta = await res.json();
+        } else {
+          const raw = await res.text();
+          try {
+            resposta = JSON.parse(raw);
+          } catch (e) {
+            appendMessage("❌ Erro: resposta não é JSON válida.", "bot");
+            return;
+          }
+        }
+
         const conteudo = formatContent(resposta?.message?.content || "❌ Resposta mal formatada.");
         appendMessage(conteudo, "bot");
 
